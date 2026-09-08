@@ -10,12 +10,14 @@ interface HeaderProps {
   subtitle?: string;
   onPressProfile?: () => void;
   onPressSettings?: () => void;
+  navigation?: any;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   title,
   subtitle,
   onPressProfile,
+  navigation,
 }) => {
   const { user } = useAuth();
   const { theme } = useTheme();
@@ -73,11 +75,17 @@ export const Header: React.FC<HeaderProps> = ({
         </View>
       </View>
 
-      {/* Slide-out Right Sidebar Drawer */}
+      {/* Slide-out Formal Right Sidebar Drawer */}
       <RightSidebarDrawer
         visible={drawerVisible}
         onClose={() => setDrawerVisible(false)}
         onNavigateToProfile={onPressProfile}
+        onNavigateToLogin={() => {
+          if (navigation) navigation.navigate('Login');
+        }}
+        onNavigateToAnalytics={() => {
+          if (navigation) navigation.navigate('Analytics');
+        }}
       />
     </>
   );

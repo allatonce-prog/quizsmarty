@@ -27,8 +27,9 @@ function TabNavigator({ navigation }: any) {
 
   return (
     <View style={[styles.tabWrapper, { backgroundColor: theme.bg }]}>
-      {/* Persistent Top Header Bar across ALL tabs */}
+      {/* Persistent Top Header Bar with navigation support for Login redirect */}
       <Header
+        navigation={navigation}
         onPressProfile={() => navigation.navigate('Profile')}
         onPressSettings={() => navigation.navigate('Profile')}
       />

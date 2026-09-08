@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Modal, View, Text, StyleSheet, TouchableOpacity, Animated, TextInput, Alert, ScrollView, Dimensions, Easing } from 'react-native';
+import { Modal, View, Text, StyleSheet, TouchableOpacity, Animated, ScrollView, Dimensions, Easing } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { useAuth } from '../context/AuthContext';
-import { User, Key, LogOut, Award, Sparkles, Sun, Moon, X, Settings } from 'lucide-react-native';
+import { User, LogOut, Award, Sun, Moon, X, Settings, ChevronRight, BarChart2 } from 'lucide-react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -10,16 +10,19 @@ interface RightSidebarDrawerProps {
   visible: boolean;
   onClose: () => void;
   onNavigateToProfile?: () => void;
+  onNavigateToLogin?: () => void;
+  onNavigateToAnalytics?: () => void;
 }
 
 export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
   visible,
   onClose,
   onNavigateToProfile,
+  onNavigateToLogin,
+  onNavigateToAnalytics,
 }) => {
-  const { user, apiKey, setApiKey, logout } = useAuth();
+  const { user, logout } = useAuth();
   const { theme, mode, setMode } = useTheme();
-  const [keyInput, setKeyInput] = useState<string>(apiKey || '');
   const [modalVisible, setModalVisible] = useState<boolean>(visible);
 
   const slideAnim = useRef(new Animated.Value(SCREEN_WIDTH)).current;
@@ -61,7 +64,7 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
     }
   }, [visible]);
 
-  const handleClose = () => {
+  const handleClose = (callback?: () => void) => {
     Animated.parallel([
       Animated.timing(slideAnim, {
         toValue: SCREEN_WIDTH,
@@ -76,18 +79,23 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
       }),
     ]).start(() => {
       onClose();
+      if (callback) callback();
     });
   };
 
-  const handleSaveApiKey = async () => {
-    await setApiKey(keyInput.trim());
-    Alert.alert('Saved', 'Google Gemini API key saved successfully.');
+  const handleLogout = async () => {
+    handleClose(async () => {
+      await logout();
+      if (onNavigateToLogin) {
+        onNavigateToLogin();
+      }
+    });
   };
 
   if (!modalVisible && !visible) return null;
 
   return (
-    <Modal transparent visible={modalVisible} onRequestClose={handleClose} animationType="none">
+    <Modal transparent visible={modalVisible} onRequestClose={() => handleClose()} animationType="none">
       <View style={styles.overlay}>
         {/* Animated Smooth Backdrop Fade */}
         <Animated.View
@@ -101,10 +109,10 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
             },
           ]}
         >
-          <TouchableOpacity style={styles.backdropPressable} activeOpacity={1} onPress={handleClose} />
+          <TouchableOpacity style={styles.backdropPressable} activeOpacity={1} onPress={() => handleClose()} />
         </Animated.View>
 
-        {/* Sliding Right Drawer Panel with Spring Physics */}
+        {/* Sliding Formal Right Drawer Panel */}
         <Animated.View
           style={[
             styles.drawerContainer,
@@ -118,16 +126,16 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
           {/* Drawer Header */}
           <View style={[styles.drawerHeader, { borderBottomColor: theme.cardBorder }]}>
             <Text style={[styles.drawerTitle, { color: theme.textPrimary }]}>Account & Settings</Text>
-            <TouchableOpacity style={styles.closeBtn} onPress={handleClose}>
+            <TouchableOpacity style={styles.closeBtn} onPress={() => handleClose()}>
               <X size={20} color={theme.textSecondary} />
             </TouchableOpacity>
           </View>
 
           <ScrollView contentContainerStyle={styles.drawerContent} showsVerticalScrollIndicator={false}>
-            {/* User Info Hero */}
+            {/* User Profile Hero Card */}
             <View style={[styles.userBox, { backgroundColor: theme.bg, borderColor: theme.cardBorder }]}>
               <View style={[styles.avatarCircle, { borderColor: theme.primary }]}>
-                <User size={28} color={theme.textPrimary} />
+                <User size={26} color={theme.textPrimary} />
               </View>
               <View style={styles.userInfo}>
                 <Text style={[styles.userName, { color: theme.textPrimary }]} numberOfLines={1}>
@@ -145,7 +153,7 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
               </View>
             </View>
 
-            {/* Quick Dark / Light Mode Switch */}
+            {/* Appearance & Theme Section */}
             <View style={[styles.sectionCard, { borderColor: theme.cardBorder }]}>
               <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>Appearance</Text>
               <View style={styles.themeToggleRow}>
@@ -167,7 +175,7 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
                       { color: mode === 'dark' ? '#FFF' : theme.textPrimary },
                     ]}
                   >
-                    Dark
+                    Dark Mode
                   </Text>
                 </TouchableOpacity>
 
@@ -189,59 +197,55 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
                       { color: mode === 'light' ? '#FFF' : theme.textPrimary },
                     ]}
                   >
-                    Light
+                    Light Mode
                   </Text>
                 </TouchableOpacity>
               </View>
             </View>
 
-            {/* Google Gemini API Key Entry */}
-            <View style={[styles.sectionCard, { borderColor: theme.cardBorder }]}>
-              <View style={styles.cardHeaderRow}>
-                <Key size={18} color={theme.primaryLight} />
-                <Text style={[styles.sectionTitle, { color: theme.textPrimary, marginLeft: 6 }]}>Gemini AI Key</Text>
-              </View>
-              <TextInput
-                style={[
-                  styles.keyInput,
-                  { backgroundColor: theme.inputBg, borderColor: theme.inputBorder, color: theme.textPrimary },
-                ]}
-                value={keyInput}
-                onChangeText={setKeyInput}
-                placeholder="AIzaSy..."
-                placeholderTextColor={theme.textMuted}
-                secureTextEntry
-              />
-              <TouchableOpacity style={[styles.saveBtn, { backgroundColor: theme.primary }]} onPress={handleSaveApiKey}>
-                <Sparkles size={14} color="#FFF" />
-                <Text style={styles.saveBtnText}>Save Key</Text>
-              </TouchableOpacity>
+            {/* Quick Formal Menu Links */}
+            <View style={[styles.sectionCard, { borderColor: theme.cardBorder, padding: 6 }]}>
+              {onNavigateToProfile && (
+                <TouchableOpacity
+                  style={styles.menuRowBtn}
+                  onPress={() => {
+                    handleClose(onNavigateToProfile);
+                  }}
+                  activeOpacity={0.7}
+                >
+                  <View style={styles.menuLeft}>
+                    <Settings size={18} color={theme.primary} />
+                    <Text style={[styles.menuText, { color: theme.textPrimary }]}>Profile & Settings</Text>
+                  </View>
+                  <ChevronRight size={16} color={theme.textMuted} />
+                </TouchableOpacity>
+              )}
+
+              {onNavigateToAnalytics && (
+                <TouchableOpacity
+                  style={styles.menuRowBtn}
+                  onPress={() => {
+                    handleClose(onNavigateToAnalytics);
+                  }}
+                  activeOpacity={0.7}
+                >
+                  <View style={styles.menuLeft}>
+                    <BarChart2 size={18} color={theme.secondary} />
+                    <Text style={[styles.menuText, { color: theme.textPrimary }]}>Study Analytics</Text>
+                  </View>
+                  <ChevronRight size={16} color={theme.textMuted} />
+                </TouchableOpacity>
+              )}
             </View>
 
-            {/* Profile Settings Nav Link */}
-            {onNavigateToProfile && (
-              <TouchableOpacity
-                style={[styles.navLinkBtn, { backgroundColor: theme.bg, borderColor: theme.cardBorder }]}
-                onPress={() => {
-                  handleClose();
-                  onNavigateToProfile();
-                }}
-              >
-                <Settings size={18} color={theme.primary} />
-                <Text style={[styles.navLinkText, { color: theme.textPrimary }]}>Profile & Preferences</Text>
-              </TouchableOpacity>
-            )}
-
-            {/* Logout / Switch Account */}
+            {/* Logout Button */}
             <TouchableOpacity
               style={[styles.logoutBtn, { backgroundColor: theme.dangerBg, borderColor: `${theme.danger}40` }]}
-              onPress={() => {
-                handleClose();
-                logout();
-              }}
+              onPress={handleLogout}
+              activeOpacity={0.85}
             >
               <LogOut size={18} color={theme.danger} />
-              <Text style={[styles.logoutText, { color: theme.danger }]}>Logout / Reset Account</Text>
+              <Text style={[styles.logoutText, { color: theme.danger }]}>Logout</Text>
             </TouchableOpacity>
           </ScrollView>
         </Animated.View>
@@ -345,11 +349,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginBottom: 10,
   },
-  cardHeaderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
   themeToggleRow: {
     flexDirection: 'row',
     gap: 8,
@@ -368,35 +367,19 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginLeft: 6,
   },
-  keyInput: {
-    borderRadius: 10,
-    padding: 10,
-    fontSize: 13,
-    borderWidth: 1,
-    marginBottom: 10,
-  },
-  saveBtn: {
+  menuRowBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 10,
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    paddingHorizontal: 10,
     borderRadius: 10,
   },
-  saveBtnText: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#FFF',
-    marginLeft: 6,
-  },
-  navLinkBtn: {
+  menuLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 14,
-    borderRadius: 14,
-    borderWidth: 1,
-    marginBottom: 14,
   },
-  navLinkText: {
+  menuText: {
     fontSize: 13,
     fontWeight: '700',
     marginLeft: 10,
@@ -408,10 +391,10 @@ const styles = StyleSheet.create({
     padding: 14,
     borderRadius: 14,
     borderWidth: 1,
-    marginTop: 6,
+    marginTop: 8,
   },
   logoutText: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '800',
     marginLeft: 8,
   },
