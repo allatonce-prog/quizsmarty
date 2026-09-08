@@ -42,9 +42,6 @@ export const Header: React.FC<HeaderProps> = ({
             </View>
           ) : (
             <TouchableOpacity style={styles.userInfo} onPress={() => setDrawerVisible(true)} activeOpacity={0.8}>
-              <View style={[styles.avatar, { borderColor: getTierColor(stats?.tier), backgroundColor: theme.bg }]}>
-                <User size={20} color={theme.textPrimary} />
-              </View>
               <View>
                 <Text style={[styles.userName, { color: theme.textPrimary }]}>{user?.displayName || 'Student'}</Text>
                 <View style={styles.tierPill}>
@@ -109,21 +106,11 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   userInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  avatar: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
-    marginRight: 12,
   },
   userName: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   tierPill: {
     flexDirection: 'row',
