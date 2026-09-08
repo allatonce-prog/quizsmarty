@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Modal, View, Text, StyleSheet, TouchableOpacity, Animated, TextInput, Alert, ScrollView, Dimensions } from 'react-native';
+import { Modal, View, Text, StyleSheet, TouchableOpacity, Animated, TextInput, Alert, ScrollView, Dimensions, Easing } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { useAuth } from '../context/AuthContext';
-import { User, Key, LogOut, Shield, Award, Sparkles, Sun, Moon, X, Settings } from 'lucide-react-native';
+import { User, Key, LogOut, Award, Sparkles, Sun, Moon, X, Settings } from 'lucide-react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -18,41 +18,93 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
   onNavigateToProfile,
 }) => {
   const { user, apiKey, setApiKey, logout } = useAuth();
-  const { theme, mode, setMode, isDark } = useTheme();
+  const { theme, mode, setMode } = useTheme();
   const [keyInput, setKeyInput] = useState<string>(apiKey || '');
+  const [modalVisible, setModalVisible] = useState<boolean>(visible);
 
   const slideAnim = useRef(new Animated.Value(SCREEN_WIDTH)).current;
+  const backdropAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     if (visible) {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 250,
-        useNativeDriver: true,
-      }).start();
+      setModalVisible(true);
+      Animated.parallel([
+        Animated.spring(slideAnim, {
+          toValue: 0,
+          friction: 8,
+          tension: 65,
+          useNativeDriver: true,
+        }),
+        Animated.timing(backdropAnim, {
+          toValue: 1,
+          duration: 250,
+          easing: Easing.out(Easing.quad),
+          useNativeDriver: true,
+        }),
+      ]).start();
     } else {
-      Animated.timing(slideAnim, {
-        toValue: SCREEN_WIDTH,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: SCREEN_WIDTH,
+          duration: 220,
+          easing: Easing.in(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.timing(backdropAnim, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        setModalVisible(false);
+      });
     }
   }, [visible]);
+
+  const handleClose = () => {
+    Animated.parallel([
+      Animated.timing(slideAnim, {
+        toValue: SCREEN_WIDTH,
+        duration: 220,
+        easing: Easing.in(Easing.quad),
+        useNativeDriver: true,
+      }),
+      Animated.timing(backdropAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      onClose();
+    });
+  };
 
   const handleSaveApiKey = async () => {
     await setApiKey(keyInput.trim());
     Alert.alert('Saved', 'Google Gemini API key saved successfully.');
   };
 
-  if (!visible) return null;
+  if (!modalVisible && !visible) return null;
 
   return (
-    <Modal transparent visible={visible} onRequestClose={onClose} animationType="none">
+    <Modal transparent visible={modalVisible} onRequestClose={handleClose} animationType="none">
       <View style={styles.overlay}>
-        {/* Backdrop Press to Close */}
-        <TouchableOpacity style={styles.backdrop} activeOpacity={1} onPress={onClose} />
+        {/* Animated Smooth Backdrop Fade */}
+        <Animated.View
+          style={[
+            styles.backdrop,
+            {
+              opacity: backdropAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 0.65],
+              }),
+            },
+          ]}
+        >
+          <TouchableOpacity style={styles.backdropPressable} activeOpacity={1} onPress={handleClose} />
+        </Animated.View>
 
-        {/* Sliding Right Drawer Container */}
+        {/* Sliding Right Drawer Panel with Spring Physics */}
         <Animated.View
           style={[
             styles.drawerContainer,
@@ -66,7 +118,7 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
           {/* Drawer Header */}
           <View style={[styles.drawerHeader, { borderBottomColor: theme.cardBorder }]}>
             <Text style={[styles.drawerTitle, { color: theme.textPrimary }]}>Account & Settings</Text>
-            <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
+            <TouchableOpacity style={styles.closeBtn} onPress={handleClose}>
               <X size={20} color={theme.textSecondary} />
             </TouchableOpacity>
           </View>
@@ -171,7 +223,7 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
               <TouchableOpacity
                 style={[styles.navLinkBtn, { backgroundColor: theme.bg, borderColor: theme.cardBorder }]}
                 onPress={() => {
-                  onClose();
+                  handleClose();
                   onNavigateToProfile();
                 }}
               >
@@ -184,7 +236,7 @@ export const RightSidebarDrawer: React.FC<RightSidebarDrawerProps> = ({
             <TouchableOpacity
               style={[styles.logoutBtn, { backgroundColor: theme.dangerBg, borderColor: `${theme.danger}40` }]}
               onPress={() => {
-                onClose();
+                handleClose();
                 logout();
               }}
             >
@@ -204,8 +256,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   backdrop: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: '#000000',
+  },
+  backdropPressable: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   drawerContainer: {
     width: Math.min(SCREEN_WIDTH * 0.82, 320),
@@ -213,9 +268,10 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     elevation: 20,
     shadowColor: '#000',
-    shadowOffset: { width: -4, height: 0 },
-    shadowOpacity: 0.25,
-    shadowRadius: 16,
+    shadowOffset: { width: -6, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 18,
+    marginLeft: 'auto',
   },
   drawerHeader: {
     flexDirection: 'row',
