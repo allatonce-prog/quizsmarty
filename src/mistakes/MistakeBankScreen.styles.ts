@@ -1,0 +1,195 @@
+import { StyleSheet } from 'react-native';
+import { colors } from '../theme/colors';
+
+export const mistakeStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.bgDark,
+  },
+  scrollContent: {
+    padding: 20,
+    paddingBottom: 90,
+  },
+  bannerCard: {
+    backgroundColor: colors.cardDark,
+    borderRadius: 20,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: colors.cardDarkBorder,
+    marginBottom: 16,
+  },
+  bannerHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  bannerTitle: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: colors.textDarkPrimary,
+    marginLeft: 10,
+  },
+  bannerSub: {
+    fontSize: 13,
+    color: colors.textDarkSecondary,
+    lineHeight: 18,
+    marginBottom: 16,
+  },
+  practiceBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.warning,
+    paddingVertical: 12,
+    borderRadius: 12,
+  },
+  practiceText: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: '#0F172A',
+    marginLeft: 8,
+  },
+  filterSegment: {
+    flexDirection: 'row',
+    backgroundColor: colors.cardDark,
+    borderRadius: 12,
+    padding: 4,
+    borderWidth: 1,
+    borderColor: colors.cardDarkBorder,
+    marginBottom: 16,
+  },
+  filterBtn: {
+    flex: 1,
+    paddingVertical: 8,
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  filterBtnActive: {
+    backgroundColor: colors.primary,
+  },
+  filterText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: colors.textDarkSecondary,
+  },
+  filterTextActive: {
+    color: '#FFF',
+  },
+  emptyCard: {
+    backgroundColor: colors.cardDark,
+    borderRadius: 16,
+    padding: 30,
+    alignItems: 'center',
+  },
+  emptyTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.textDarkPrimary,
+    marginTop: 10,
+  },
+  emptySub: {
+    fontSize: 12,
+    color: colors.textDarkSecondary,
+    marginTop: 4,
+    textAlign: 'center',
+  },
+  mistakeCard: {
+    backgroundColor: colors.cardDark,
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: colors.cardDarkBorder,
+    marginBottom: 12,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  subjectTag: {
+    backgroundColor: 'rgba(99, 102, 241, 0.15)',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
+  },
+  subjectText: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: colors.primaryLight,
+  },
+  topicText: {
+    fontSize: 11,
+    color: colors.textDarkMuted,
+  },
+  questionText: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: colors.textDarkPrimary,
+    marginBottom: 10,
+    lineHeight: 20,
+  },
+  answerBox: {
+    backgroundColor: colors.bgDark,
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  ansLine: {
+    fontSize: 12,
+    marginVertical: 2,
+  },
+  ansLabel: {
+    fontWeight: '700',
+    color: colors.textDarkSecondary,
+  },
+  explanationBox: {
+    backgroundColor: 'rgba(99, 102, 241, 0.06)',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 12,
+  },
+  expHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  expTitle: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: colors.primaryLight,
+    marginLeft: 4,
+  },
+  expText: {
+    fontSize: 11,
+    color: colors.textDarkSecondary,
+  },
+  masterBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(16, 185, 129, 0.12)',
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(16, 185, 129, 0.3)',
+  },
+  masterText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: colors.success,
+    marginLeft: 6,
+  },
+  masteredBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+  },
+  masteredText: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: colors.success,
+    marginLeft: 4,
+  },
+});

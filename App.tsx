@@ -1,20 +1,38 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ThemeProvider, useTheme } from './src/theme/ThemeContext';
+import { AuthProvider } from './src/context/AuthContext';
+import { QuizProvider, useQuiz } from './src/context/QuizContext';
+import { RootNavigator } from './src/navigation/RootNavigator';
+import { CelebrationModal } from './src/components/CelebrationModal';
 
-export default function App() {
+function MainApp() {
+  const { newlyUnlockedBadges, clearNewUnlocks } = useQuiz();
+  const { isDark } = useTheme();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style={isDark ? 'light' : 'dark'} />
+      <RootNavigator />
+      <CelebrationModal
+        badges={newlyUnlockedBadges}
+        onClose={clearNewUnlocks}
+      />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <QuizProvider>
+            <MainApp />
+          </QuizProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </SafeAreaProvider>
+  );
+}
