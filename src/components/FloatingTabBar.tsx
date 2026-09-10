@@ -48,7 +48,7 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
   // Active Pill dimensions
   const activePos = position || slideAnim;
 
-  // Blue Pill width, height & positioning interpolations
+  // Sky Blue Pill width, height & positioning interpolations
   const pillWidth = activePos.interpolate({
     inputRange: [0, 1, 2, 3, 4],
     outputRange: [52, 52, 54, 52, 52],
@@ -85,7 +85,7 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
   const getTabIcon = (routeName: string, isFocused: boolean) => {
     const isCenterUpload = routeName === 'Upload';
     const size = isCenterUpload ? 26 : 21;
-    const color = isFocused ? '#FFFFFF' : isCenterUpload ? theme.primary : theme.textMuted;
+    const color = isFocused ? '#FFFFFF' : isCenterUpload ? theme.skyBlue : theme.textMuted;
 
     switch (routeName) {
       case 'Dashboard': return <Home size={size} color={color} />;
@@ -115,13 +115,13 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
         style={[
           styles.floatingCapsule,
           {
-            backgroundColor: isDark ? 'rgba(30, 41, 59, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-            borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)',
-            shadowColor: isDark ? '#000' : '#64748B',
+            backgroundColor: isDark ? 'rgba(19, 30, 58, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+            borderColor: theme.cardBorder,
+            shadowColor: theme.skyBlue,
           },
         ]}
       >
-        {/* Pixel-Perfect Centered Glowing Blue Pill Active Background */}
+        {/* Glowing Sky Blue Pill Active Background */}
         <Animated.View
           style={[
             styles.glowingBluePill,
@@ -130,6 +130,8 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
               height: pillHeight,
               borderRadius: pillRadius,
               top: pillTop,
+              backgroundColor: theme.skyBlue,
+              shadowColor: theme.skyBlue,
               transform: [{ translateX }],
             },
           ]}
@@ -173,7 +175,7 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
               >
                 {getTabIcon(route.name, isFocused)}
                 {!isFocused && (
-                  <Text style={[styles.inactiveLabel, { color: isCenterUpload ? theme.primary : theme.textMuted }]}>
+                  <Text style={[styles.inactiveLabel, { color: isCenterUpload ? theme.skyBlue : theme.textMuted }]}>
                     {getTabLabel(route.name)}
                   </Text>
                 )}
@@ -203,18 +205,16 @@ const styles = StyleSheet.create({
     maxWidth: 440,
     height: 70,
     borderRadius: 35,
-    paddingHorizontal: 0, // Zero horizontal padding so slotWidth = width / 5
-    borderWidth: 1,
+    paddingHorizontal: 0,
+    borderWidth: 1.5,
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.12,
+    shadowOpacity: 0.15,
     shadowRadius: 18,
     elevation: 12,
     position: 'relative',
   },
   glowingBluePill: {
     position: 'absolute',
-    backgroundColor: '#3B82F6',
-    shadowColor: '#3B82F6',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 12,

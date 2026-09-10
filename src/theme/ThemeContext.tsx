@@ -13,6 +13,9 @@ export interface ThemeColors {
   primary: string;
   primaryLight: string;
   primaryBg: string;
+  skyBlue: string;
+  skyBlueLight: string;
+  skyBlueBg: string;
   secondary: string;
   accent: string;
   success: string;
@@ -30,17 +33,20 @@ export interface ThemeColors {
 }
 
 export const darkTheme: ThemeColors = {
-  bg: '#0B0F19',
-  card: '#151C2C',
-  cardBorder: '#232D42',
+  bg: '#0B1329', // Deep Midnight Navy Blue
+  card: '#131E3A', // Rich Dark Blue Card
+  cardBorder: '#1E2D54', // Sky Blue Tint Border
   textPrimary: '#F8FAFC',
   textSecondary: '#94A3B8',
   textMuted: '#64748B',
-  primary: '#6366F1',
-  primaryLight: '#818CF8',
-  primaryBg: 'rgba(99, 102, 241, 0.12)',
-  secondary: '#8B5CF6',
-  accent: '#EC4899',
+  primary: '#2563EB', // Royal Blue
+  primaryLight: '#3B82F6',
+  primaryBg: 'rgba(37, 99, 235, 0.15)',
+  skyBlue: '#0EA5E9', // Sky Blue Accent
+  skyBlueLight: '#38BDF8',
+  skyBlueBg: 'rgba(14, 165, 233, 0.18)',
+  secondary: '#0284C7',
+  accent: '#38BDF8',
   success: '#10B981',
   successBg: 'rgba(16, 185, 129, 0.12)',
   warning: '#F59E0B',
@@ -48,37 +54,40 @@ export const darkTheme: ThemeColors = {
   danger: '#EF4444',
   dangerBg: 'rgba(239, 68, 68, 0.12)',
   inputBg: '#0F172A',
-  inputBorder: '#232D42',
+  inputBorder: '#1E2D54',
   tierBronze: '#CD7F32',
-  tierSilver: '#C0C0C0',
-  tierGold: '#FFD700',
-  shadowColor: '#000000',
+  tierSilver: '#94A3B8',
+  tierGold: '#F59E0B',
+  shadowColor: '#0284C7',
 };
 
 export const lightTheme: ThemeColors = {
-  bg: '#F8FAFC',
-  card: '#FFFFFF',
-  cardBorder: '#E2E8F0',
-  textPrimary: '#0F172A',
-  textSecondary: '#475569',
-  textMuted: '#94A3B8',
-  primary: '#4F46E5',
-  primaryLight: '#6366F1',
-  primaryBg: 'rgba(79, 70, 229, 0.08)',
-  secondary: '#7C3AED',
-  accent: '#DB2777',
+  bg: '#F0F9FF', // Soft Sky Blue & Crisp White Tint Background
+  card: '#FFFFFF', // Crisp Clean White Card
+  cardBorder: '#BAE6FD', // Light Sky Blue Border
+  textPrimary: '#0F172A', // Deep Navy Slate Text
+  textSecondary: '#334155',
+  textMuted: '#64748B',
+  primary: '#2563EB', // Royal Blue
+  primaryLight: '#3B82F6',
+  primaryBg: 'rgba(37, 99, 235, 0.08)',
+  skyBlue: '#0EA5E9', // Vibrant Sky Blue
+  skyBlueLight: '#38BDF8',
+  skyBlueBg: 'rgba(14, 165, 233, 0.12)',
+  secondary: '#0284C7',
+  accent: '#0EA5E9',
   success: '#059669',
   successBg: 'rgba(5, 150, 105, 0.08)',
   warning: '#D97706',
   warningBg: 'rgba(217, 119, 6, 0.08)',
   danger: '#DC2626',
   dangerBg: 'rgba(220, 38, 38, 0.08)',
-  inputBg: '#F1F5F9',
-  inputBorder: '#CBD5E1',
+  inputBg: '#E0F2FE',
+  inputBorder: '#7DD3FC',
   tierBronze: '#B87333',
-  tierSilver: '#A0A0A0',
-  tierGold: '#E6B800',
-  shadowColor: '#64748B',
+  tierSilver: '#64748B',
+  tierGold: '#D97706',
+  shadowColor: '#0EA5E9',
 };
 
 interface ThemeContextType {
