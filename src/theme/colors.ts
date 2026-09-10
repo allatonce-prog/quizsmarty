@@ -27,13 +27,13 @@ export const colors = {
   tierSilver: '#94A3B8',
   tierGold: '#F59E0B',
 
-  // Dark Theme Palette (Midnight Maroon & Red Highlights)
-  bgDark: '#1A050A',
-  cardDark: '#2D0B12',
-  cardDarkBorder: '#4A1521',
+  // Dark Theme Palette (Sleek Onyx Black & Red Highlights)
+  bgDark: '#09090B',
+  cardDark: '#121215',
+  cardDarkBorder: '#27272A',
   textDarkPrimary: '#F8FAFC',
-  textDarkSecondary: '#94A3B8',
-  textDarkMuted: '#64748B',
+  textDarkSecondary: '#A1A1AA',
+  textDarkMuted: '#71717A',
 
   // Light Theme Palette (Crisp White & Soft Maroon Tints)
   bgLight: '#FFF5F5',

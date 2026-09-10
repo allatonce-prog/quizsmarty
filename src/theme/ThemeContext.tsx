@@ -33,28 +33,28 @@ export interface ThemeColors {
 }
 
 export const darkTheme: ThemeColors = {
-  bg: '#1A050A', // Deep Midnight Maroon
-  card: '#2D0B12', // Rich Dark Maroon Card
-  cardBorder: '#4A1521', // Crimson Border Tint
+  bg: '#09090B', // Sleek Onyx Pure Black
+  card: '#121215', // Elevated Pure Dark Charcoal Card
+  cardBorder: '#27272A', // Crisp Modern Zinc Border
   textPrimary: '#F8FAFC',
-  textSecondary: '#CBD5E1',
-  textMuted: '#94A3B8',
-  primary: '#800000', // Rich Maroon
-  primaryLight: '#A51D24',
-  primaryBg: 'rgba(128, 0, 0, 0.2)',
+  textSecondary: '#A1A1AA',
+  textMuted: '#71717A',
+  primary: '#DC2626', // Vibrant Red Accent
+  primaryLight: '#EF4444',
+  primaryBg: 'rgba(220, 38, 38, 0.2)',
   skyBlue: '#DC2626', // Vibrant Red Accent
   skyBlueLight: '#EF4444',
   skyBlueBg: 'rgba(220, 38, 38, 0.2)',
-  secondary: '#A51D24',
-  accent: '#EF4444',
+  secondary: '#EF4444',
+  accent: '#DC2626',
   success: '#10B981',
   successBg: 'rgba(16, 185, 129, 0.15)',
   warning: '#F59E0B',
   warningBg: 'rgba(245, 158, 11, 0.15)',
   danger: '#EF4444',
   dangerBg: 'rgba(239, 68, 68, 0.2)',
-  inputBg: '#150307',
-  inputBorder: '#4A1521',
+  inputBg: '#18181B',
+  inputBorder: '#3F3F46',
   tierBronze: '#CD7F32',
   tierSilver: '#94A3B8',
   tierGold: '#F59E0B',

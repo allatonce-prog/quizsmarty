@@ -115,7 +115,7 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
         style={[
           styles.floatingCapsule,
           {
-            backgroundColor: isDark ? 'rgba(45, 11, 18, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+            backgroundColor: isDark ? 'rgba(18, 18, 21, 0.95)' : 'rgba(255, 255, 255, 0.95)',
             borderColor: theme.cardBorder,
             shadowColor: theme.skyBlue,
           },
