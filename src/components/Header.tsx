@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { RightSidebarDrawer } from './RightSidebarDrawer';
-import { Flame, Award, User } from 'lucide-react-native';
+import { Sparkles, User } from 'lucide-react-native';
 
 interface HeaderProps {
   title?: string;
@@ -25,52 +25,37 @@ export const Header: React.FC<HeaderProps> = ({
 
   const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
 
-  const getTierColor = (tier?: string) => {
-    switch (tier) {
-      case 'gold': return theme.tierGold;
-      case 'silver': return theme.tierSilver;
-      default: return theme.tierBronze;
-    }
-  };
-
   return (
     <>
       <View style={[styles.container, { backgroundColor: theme.card, borderBottomColor: theme.cardBorder }]}>
+        {/* Left Section: App Brand Name */}
         <View style={styles.leftSection}>
-          {title ? (
+          <TouchableOpacity
+            style={styles.brandRow}
+            onPress={() => setDrawerVisible(true)}
+            activeOpacity={0.85}
+          >
+            <View style={[styles.logoIconBadge, { backgroundColor: theme.skyBlueBg }]}>
+              <Sparkles size={18} color={theme.skyBlue} />
+            </View>
             <View>
-              <Text style={[styles.title, { color: theme.textPrimary }]}>{title}</Text>
+              <Text style={[styles.brandTitle, { color: theme.textPrimary }]}>
+                {title || 'QuizSmarty'}
+                {!title && <Text style={{ color: theme.skyBlue }}> AI</Text>}
+              </Text>
               {subtitle ? <Text style={[styles.subtitle, { color: theme.textSecondary }]}>{subtitle}</Text> : null}
             </View>
-          ) : (
-            <TouchableOpacity style={styles.userInfo} onPress={() => setDrawerVisible(true)} activeOpacity={0.8}>
-              <View>
-                <Text style={[styles.userName, { color: theme.textPrimary }]}>{user?.displayName || 'Student'}</Text>
-                <View style={styles.tierPill}>
-                  <Award size={12} color={getTierColor(stats?.tier)} />
-                  <Text style={[styles.tierText, { color: getTierColor(stats?.tier) }]}>
-                    {(stats?.tier || 'bronze').toUpperCase()} • Lvl {stats?.level || 1}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          )}
+          </TouchableOpacity>
         </View>
 
+        {/* Right Section: Profile Drawer Avatar Icon Button */}
         <View style={styles.rightSection}>
-          {/* Streak Badge */}
-          <View style={[styles.streakBadge, { backgroundColor: theme.warningBg, borderColor: `${theme.warning}40` }]}>
-            <Flame size={15} color={theme.warning} />
-            <Text style={[styles.streakText, { color: theme.warning }]}>{stats?.currentStreakDays || 1} Day</Text>
-          </View>
-
-          {/* Right Avatar Button -> Opens Right Sidebar Drawer! */}
           <TouchableOpacity
-            style={[styles.avatarBtn, { backgroundColor: theme.bg, borderColor: getTierColor(stats?.tier) }]}
+            style={[styles.avatarBtn, { backgroundColor: theme.bg, borderColor: theme.skyBlue }]}
             onPress={() => setDrawerVisible(true)}
             activeOpacity={0.8}
           >
-            <User size={18} color={theme.primary} />
+            <User size={18} color={theme.skyBlue} />
           </TouchableOpacity>
         </View>
       </View>
@@ -105,48 +90,30 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 22,
-    fontWeight: '800',
-  },
-  subtitle: {
-    fontSize: 13,
-    marginTop: 2,
-  },
-  userInfo: {
-    justifyContent: 'center',
-  },
-  userName: {
-    fontSize: 16,
-    fontWeight: '800',
-  },
-  tierPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 2,
-  },
-  tierText: {
-    fontSize: 11,
-    fontWeight: '700',
-    marginLeft: 4,
-  },
-  rightSection: {
+  brandRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
   },
-  streakBadge: {
+  logoIconBadge: {
+    width: 34,
+    height: 34,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  brandTitle: {
+    fontSize: 20,
+    fontWeight: '900',
+    letterSpacing: -0.3,
+  },
+  subtitle: {
+    fontSize: 12,
+    marginTop: 1,
+  },
+  rightSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 16,
-    borderWidth: 1,
-  },
-  streakText: {
-    fontSize: 12,
-    fontWeight: '700',
-    marginLeft: 4,
   },
   avatarBtn: {
     width: 38,
@@ -157,3 +124,4 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
 });
+
