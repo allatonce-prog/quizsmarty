@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated, Dimensions, LayoutChangeEvent } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
-import { Home, ShieldAlert, UploadCloud, BarChart3, Award } from 'lucide-react-native';
+import { Home, Layers, UploadCloud, BarChart3, Award } from 'lucide-react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -89,7 +89,7 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
 
     switch (routeName) {
       case 'Dashboard': return <Home size={size} color={color} />;
-      case 'MistakeBank': return <ShieldAlert size={size} color={color} />;
+      case 'Flashcards': return <Layers size={size} color={color} />;
       case 'Upload': return <UploadCloud size={size} color={color} />;
       case 'Analytics': return <BarChart3 size={size} color={color} />;
       case 'Achievements': return <Award size={size} color={color} />;
@@ -100,7 +100,7 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
   const getTabLabel = (routeName: string) => {
     switch (routeName) {
       case 'Dashboard': return 'Home';
-      case 'MistakeBank': return 'Mistakes';
+      case 'Flashcards': return 'Cards';
       case 'Upload': return 'Upload';
       case 'Analytics': return 'Stats';
       case 'Achievements': return 'Badges';

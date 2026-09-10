@@ -14,7 +14,7 @@ import { UploadScreen } from '../upload/UploadScreen';
 import { QuizGeneratorScreen } from '../quiz/QuizGeneratorScreen';
 import { QuizPlayerScreen } from '../quiz/QuizPlayerScreen';
 import { QuizResultsScreen } from '../quiz/QuizResultsScreen';
-import { MistakeBankScreen } from '../mistakes/MistakeBankScreen';
+import { FlashcardsScreen } from '../flashcards/FlashcardsScreen';
 import { AnalyticsScreen } from '../analytics/AnalyticsScreen';
 import { AchievementsScreen } from '../achievements/AchievementsScreen';
 import { ProfileScreen } from '../profile/ProfileScreen';
@@ -44,7 +44,7 @@ function TabNavigator({ navigation }: any) {
         }}
       >
         <Tab.Screen name="Dashboard" component={DashboardScreen} />
-        <Tab.Screen name="MistakeBank" component={MistakeBankScreen} />
+        <Tab.Screen name="Flashcards" component={FlashcardsScreen} />
         <Tab.Screen name="Upload" component={UploadScreen} />
         <Tab.Screen name="Analytics" component={AnalyticsScreen} />
         <Tab.Screen name="Achievements" component={AchievementsScreen} />
