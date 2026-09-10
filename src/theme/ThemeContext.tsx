@@ -13,7 +13,7 @@ export interface ThemeColors {
   primary: string;
   primaryLight: string;
   primaryBg: string;
-  skyBlue: string;
+  skyBlue: string; // Theme accent token (Maroon/Red variant)
   skyBlueLight: string;
   skyBlueBg: string;
   secondary: string;
@@ -33,61 +33,61 @@ export interface ThemeColors {
 }
 
 export const darkTheme: ThemeColors = {
-  bg: '#0B1329', // Deep Midnight Navy Blue
-  card: '#131E3A', // Rich Dark Blue Card
-  cardBorder: '#1E2D54', // Sky Blue Tint Border
+  bg: '#1A050A', // Deep Midnight Maroon
+  card: '#2D0B12', // Rich Dark Maroon Card
+  cardBorder: '#4A1521', // Crimson Border Tint
   textPrimary: '#F8FAFC',
-  textSecondary: '#94A3B8',
-  textMuted: '#64748B',
-  primary: '#2563EB', // Royal Blue
-  primaryLight: '#3B82F6',
-  primaryBg: 'rgba(37, 99, 235, 0.15)',
-  skyBlue: '#0EA5E9', // Sky Blue Accent
-  skyBlueLight: '#38BDF8',
-  skyBlueBg: 'rgba(14, 165, 233, 0.18)',
-  secondary: '#0284C7',
-  accent: '#38BDF8',
+  textSecondary: '#CBD5E1',
+  textMuted: '#94A3B8',
+  primary: '#800000', // Rich Maroon
+  primaryLight: '#A51D24',
+  primaryBg: 'rgba(128, 0, 0, 0.2)',
+  skyBlue: '#DC2626', // Vibrant Red Accent
+  skyBlueLight: '#EF4444',
+  skyBlueBg: 'rgba(220, 38, 38, 0.2)',
+  secondary: '#A51D24',
+  accent: '#EF4444',
   success: '#10B981',
-  successBg: 'rgba(16, 185, 129, 0.12)',
+  successBg: 'rgba(16, 185, 129, 0.15)',
   warning: '#F59E0B',
-  warningBg: 'rgba(245, 158, 11, 0.12)',
+  warningBg: 'rgba(245, 158, 11, 0.15)',
   danger: '#EF4444',
-  dangerBg: 'rgba(239, 68, 68, 0.12)',
-  inputBg: '#0F172A',
-  inputBorder: '#1E2D54',
+  dangerBg: 'rgba(239, 68, 68, 0.2)',
+  inputBg: '#150307',
+  inputBorder: '#4A1521',
   tierBronze: '#CD7F32',
   tierSilver: '#94A3B8',
   tierGold: '#F59E0B',
-  shadowColor: '#0284C7',
+  shadowColor: '#DC2626',
 };
 
 export const lightTheme: ThemeColors = {
-  bg: '#F0F9FF', // Soft Sky Blue & Crisp White Tint Background
+  bg: '#FFF5F5', // Warm Soft White & Pearl Background
   card: '#FFFFFF', // Crisp Clean White Card
-  cardBorder: '#BAE6FD', // Light Sky Blue Border
-  textPrimary: '#0F172A', // Deep Navy Slate Text
-  textSecondary: '#334155',
+  cardBorder: '#FECDD3', // Light Red / Rose Border
+  textPrimary: '#1A050A', // Deep Maroon Slate Text
+  textSecondary: '#4A1521',
   textMuted: '#64748B',
-  primary: '#2563EB', // Royal Blue
-  primaryLight: '#3B82F6',
-  primaryBg: 'rgba(37, 99, 235, 0.08)',
-  skyBlue: '#0EA5E9', // Vibrant Sky Blue
-  skyBlueLight: '#38BDF8',
-  skyBlueBg: 'rgba(14, 165, 233, 0.12)',
-  secondary: '#0284C7',
-  accent: '#0EA5E9',
+  primary: '#800000', // Rich Maroon
+  primaryLight: '#A51D24',
+  primaryBg: 'rgba(128, 0, 0, 0.08)',
+  skyBlue: '#DC2626', // Vibrant Red Accent
+  skyBlueLight: '#EF4444',
+  skyBlueBg: 'rgba(220, 38, 38, 0.12)',
+  secondary: '#A51D24',
+  accent: '#DC2626',
   success: '#059669',
   successBg: 'rgba(5, 150, 105, 0.08)',
   warning: '#D97706',
   warningBg: 'rgba(217, 119, 6, 0.08)',
   danger: '#DC2626',
   dangerBg: 'rgba(220, 38, 38, 0.08)',
-  inputBg: '#E0F2FE',
-  inputBorder: '#7DD3FC',
+  inputBg: '#FFE4E6',
+  inputBorder: '#FDA4AF',
   tierBronze: '#B87333',
   tierSilver: '#64748B',
   tierGold: '#D97706',
-  shadowColor: '#0EA5E9',
+  shadowColor: '#DC2626',
 };
 
 interface ThemeContextType {

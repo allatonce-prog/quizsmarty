@@ -48,7 +48,7 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
   // Active Pill dimensions
   const activePos = position || slideAnim;
 
-  // Sky Blue Pill width, height & positioning interpolations
+  // Red Pill width, height & positioning interpolations
   const pillWidth = activePos.interpolate({
     inputRange: [0, 1, 2, 3, 4],
     outputRange: [52, 52, 54, 52, 52],
@@ -115,13 +115,13 @@ export const FloatingTabBar: React.FC<any> = ({ state, descriptors, navigation, 
         style={[
           styles.floatingCapsule,
           {
-            backgroundColor: isDark ? 'rgba(19, 30, 58, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+            backgroundColor: isDark ? 'rgba(45, 11, 18, 0.95)' : 'rgba(255, 255, 255, 0.95)',
             borderColor: theme.cardBorder,
             shadowColor: theme.skyBlue,
           },
         ]}
       >
-        {/* Glowing Sky Blue Pill Active Background */}
+        {/* Glowing Red Pill Active Background */}
         <Animated.View
           style={[
             styles.glowingBluePill,
